@@ -1,31 +1,22 @@
 package com.wesjordan.msatutorial.controller;
 
 import com.wesjordan.msatutorial.domain.Team;
+import com.wesjordan.msatutorial.repository.TeamRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class TeamController {
 
+    @Autowired
+    TeamRepository teamRepository;
+
     @RequestMapping(value = "/teams")
-    public List<Team> getTeams(){
-        List<Team> teams = new ArrayList<>();
-
-        Team team = new Team();
-        team.setId(0l);
-        team.setLocation("Harlem");
-        team.setName("Globetrotters");
-        teams.add(team);
-
-        team = new Team();
-        team.setId(1l);
-        team.setLocation("Washington");
-        team.setName("Generals");
-        teams.add(team);
-
+    public Iterable<Team> getTeams(){
+        Iterable<Team> teams = teamRepository.findAll();
         return teams;
     }
 }
