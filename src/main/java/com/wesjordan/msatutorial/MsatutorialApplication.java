@@ -1,5 +1,6 @@
 package com.wesjordan.msatutorial;
 
+import com.wesjordan.msatutorial.domain.Player;
 import com.wesjordan.msatutorial.domain.Team;
 import com.wesjordan.msatutorial.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @SpringBootApplication
 public class MsatutorialApplication {
@@ -22,18 +25,16 @@ public class MsatutorialApplication {
 
 	@PostConstruct
 	public void init(){
-		List<Team> teams = new ArrayList<>();
+		List<Team> list = new ArrayList<>();
 
-		Team team = new Team();
-		team.setLocation("Harlem");
-		team.setName("Globetrotters");
-		teams.add(team);
+		Set<Player> set = new HashSet<>();
+		set.add(new Player("Big Easy", "Showman"));
+		set.add(new Player("Buckets", "Guard"));
+		set.add(new Player("Dizzy", "Guard"));
 
-		team = new Team();
-		team.setLocation("Washington");
-		team.setName("Generals");
-		teams.add(team);
+		list.add(new Team("Harlem", "Globetrotters", set));
+		list.add(new Team("Washington","Generals",null));
 
-		teamRepository.save(teams);
+		teamRepository.save(list);
 	}
 }
